@@ -55,24 +55,24 @@ menu:
         frameworks:
             section: Frameworks
             items:
-                slim:
-                    text: Slim
-                    url: doc/frameworks/slim.html
                 symfony:
                     text: Symfony
                     url: doc/frameworks/symfony2.html
+                silex:
+                    text: Silex
+                    url: doc/frameworks/silex.html
                 zf2:
                     text: Zend Framework 2
                     url: doc/frameworks/zf2.html
                 zf1:
                     text: Zend Framework 1
                     url: doc/frameworks/zf1.html
+                slim:
+                    text: Slim
+                    url: doc/frameworks/slim.html
                 silly:
                     text: Silly
                     url: doc/frameworks/silly.html
-                silex:
-                    text: Silex
-                    url: doc/frameworks/silex.html
                 demo:
                     text: Demo application
                     absoluteUrl: https://github.com/PHP-DI/demo
@@ -82,6 +82,9 @@ menu:
                 performances:
                     text: Performances
                     url: doc/performances.html
+                scopes:
+                    text: Scopes
+                    url: doc/scopes.html
                 lazy-injection:
                     text: Lazy injection
                     url: doc/lazy-injection.html
@@ -103,15 +106,6 @@ menu:
                 v5:
                     text: From PHP-DI 4.x to 5.0
                     url: doc/migration/5.0.html
-                v6:
-                    text: From PHP-DI 5.x to 6.0
-                    url: doc/migration/6.0.html
-        support:
-            section: Support
-            items:
-                enterprise-support:
-                    text: Enterprise support
-                    url: support.html
         internals:
             section: Internals
             items:
@@ -124,15 +118,12 @@ menu:
         versions:
             section: Old documentation
             items:
-                docv3:
+                v3:
                     text: PHP-DI 3.x
                     absoluteUrl: https://github.com/PHP-DI/PHP-DI/tree/3.x/doc
-                docv4:
+                v4:
                     text: PHP-DI 4.x
                     absoluteUrl: https://github.com/PHP-DI/PHP-DI/tree/4.x/doc
-                docv5:
-                    text: PHP-DI 5.x
-                    absoluteUrl: https://github.com/PHP-DI/PHP-DI/tree/5.4/doc
 
 frameworks:
     zf1: Zend Framework 1

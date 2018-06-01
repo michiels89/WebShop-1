@@ -3,7 +3,6 @@
 This package configures Slim 3 to work with the [PHP-DI container](http://php-di.org/).
 
 [![Build Status](https://travis-ci.org/PHP-DI/Slim-Bridge.svg?branch=master)](https://travis-ci.org/PHP-DI/Slim-Bridge)
-[![](https://img.shields.io/packagist/dt/php-di/slim-bridge.svg)](https://packagist.org/packages/php-di/slim-bridge)
 
 The full documentation is here: **http://php-di.org/doc/frameworks/slim.html**
 
@@ -54,10 +53,9 @@ By default, Slim controllers have a strict signature: `$request, $response, $arg
 
 Controller parameters can be any of these things:
 
-- the request or response (parameters must be named `$request` or `$response`)
-- route placeholders
-- request attributes
-- services (injected by type-hint)
+- request or response injection (parameters must be named `$request` or `$response`)
+- request attribute injection
+- service injection (by type-hint)
 
 You can mix all these types of parameters together too. They will be matched by priority in the order of the list above.
 
@@ -73,7 +71,7 @@ $app->get('/', function (ResponseInterface $response, ServerRequestInterface $re
 
 As you can see, the order of the parameters doesn't matter. That allows to skip injecting the `$request` if it's not needed for example.
 
-#### Route placeholder injection
+#### Request attribute injection
 
 ```php
 $app->get('/hello/{name}', function ($name, ResponseInterface $response) {
@@ -83,22 +81,6 @@ $app->get('/hello/{name}', function ($name, ResponseInterface $response) {
 ```
 
 As you can see above, the route's URL contains a `name` placeholder. By simply adding a parameter **with the same name** to the controller, PHP-DI will directly inject it.
-
-#### Request attribute injection
-
-```php
-$app->add(function ($request, $response, $next) {
-    $request = $request->withAttribute('name', 'Bob');
-    return $next($request, $response);
-});
-
-$app->get('/', function ($name, ResponseInterface $response) {
-    $response->getBody()->write('Hello ' . $name);
-    return $response;
-});
-```
-
-As you can see above, a middleware sets a `name` attribute. By simply adding a parameter **with the same name** to the controller, PHP-DI will directly inject it.
 
 #### Service injection
 

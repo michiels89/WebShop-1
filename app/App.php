@@ -9,7 +9,7 @@ class App extends DIBridge
     protected function configureContainer(ContainerBuilder $builder) 
     {
         $builder->addDefinitions([
-            'settings.displayErrorDetails' =>true,
+            'settings.displayErrorDetails' => true,
         ]);
         
         $builder->addDefinitions(__DIR__ .'/container.php');

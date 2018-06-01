@@ -8,13 +8,13 @@ use function DI\get;
 return [
     'router' => get(Slim\Router::class),
     
-    Twig::class => function (ContainerInterface $c){
+    Twig::class => function (ContainerInterface $c) {
         
-     $twig = new Twig(__DIR__ .'/../resources/views',[
+     $twig = new Twig(__DIR__ .'/../resources/views', [
          'cache' => false
      ]);  
         
-        $twig->addExtension (new TwigExtension(
+        $twig->addExtension(new TwigExtension(
             $c->get('router'),
             $c->get('request')->getUri()
         ));
