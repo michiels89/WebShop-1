@@ -9,6 +9,7 @@
 namespace Slim\Views;
 
 use Psr\Http\Message\ResponseInterface;
+use Slim\Views\TwigExtension;
 
 /**
  * Twig View
@@ -54,7 +55,10 @@ class Twig implements \ArrayAccess
      */
     public function __construct($path, $settings = [])
     {
-        $this->loader = $this->createLoader(is_string($path) ? [$path] : $path);
+        $this->loader = is_string($path)
+            ? new \Twig_Loader_Filesystem($path)
+            : $this->addPaths($path);
+
         $this->environment = new \Twig_Environment($this->loader, $settings);
     }
 
@@ -85,38 +89,7 @@ class Twig implements \ArrayAccess
     {
         $data = array_merge($this->defaultVariables, $data);
 
-        return $this->environment->render($template, $data);
-    }
-
-    /**
-     * Fetch rendered block
-     *
-     * @param  string $template Template pathname relative to templates directory
-     * @param  string $block    Name of the block within the template
-     * @param  array  $data     Associative array of template variables
-     *
-     * @return string
-     */
-    public function fetchBlock($template, $block, $data = [])
-    {
-        $data = array_merge($this->defaultVariables, $data);
-
-        return $this->environment->loadTemplate($template)->renderBlock($block, $data);
-    }
-
-    /**
-     * Fetch rendered string
-     *
-     * @param  string $string String
-     * @param  array  $data   Associative array of template variables
-     *
-     * @return string
-     */
-    public function fetchFromString($string ="", $data = [])
-    {
-        $data = array_merge($this->defaultVariables, $data);
-
-        return $this->environment->createTemplate($string)->render($data);
+        return $this->environment->loadTemplate($template)->render($data);
     }
 
     /**
@@ -135,21 +108,17 @@ class Twig implements \ArrayAccess
     }
 
     /**
-     * Create a loader with the given path
+     * Add a selection of paths with the desired namespace
      *
      * @param array $paths
      * @return \Twig_Loader_Filesystem
      */
-    private function createLoader(array $paths)
+    private function addPaths(array $paths)
     {
         $loader = new \Twig_Loader_Filesystem();
 
         foreach ($paths as $namespace => $path) {
-            if (is_string($namespace)) {
-                $loader->setPaths($path, $namespace);
-            } else {
-                $loader->addPath($path);
-            }
+            $loader->addPath($path, $namespace);
         }
 
         return $loader;
