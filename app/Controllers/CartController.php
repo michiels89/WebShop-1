@@ -6,7 +6,9 @@ use Slim\Router;
 use Slim\Views\Twig;
 use Cart\Basket\Basket;
 use Cart\Models\Product;
+
 use Psr\Http\Message\ResponseInterface as Response;
+use Cart\Basket\Exceptions\QuantityExceededException;
 use Psr\Http\Message\ServerRequestInterface as Request;
 
 class CartController
@@ -24,6 +26,7 @@ class CartController
     
     public function index(Request $request, Response $response, Twig $view )
     {
+        $this->basket->refresh();
         return $view->render($response, 'cart/index.twig');
     }
     public function add($slug, $quantity, Request $request, Response $response, Router $router)
