@@ -6,10 +6,13 @@ use Slim\Router;
 use Slim\Views\Twig;
 use Cart\Basket\Basket;
 use Cart\Models\Product;
+use Cart\Models\Customer;
+use Cart\Models\Address;
 use Cart\Validation\Contracts\ValidatorInterface;
 use Psr\Http\Message\ResponseInterface as Response;
 use Psr\Http\Message\ServerRequestInterface as Request;
 use Cart\Validation\Forms\OrderForm;
+
 
 
 
@@ -39,7 +42,7 @@ class OrderController
         return $view->render($response,'order/index.twig');
     }
     
-    public function create(Request $request, Response $response)
+    public function create(Request $request, Response $response, Customer $customer, Address $address)
     {
         $this->basket->refresh();
         
@@ -52,12 +55,35 @@ class OrderController
 //            die();
 //        
         
-        if ($validation->fails()){
+//        if ($validation->fails()){
+//
+//            return $response->withRedirect($this->router->pathFor('order.index'));
+//        }
+        
+        $hash = bin2hex(random_bytes(32)) ;
+        
+        $customer = $customer->firstOrCreate([
+            'email' => $request->getParam('email'),
+            'name' => $request->getParam('name'),
+            
+        ]);
+        
+        $address = $address->firstOrCreate([
+            'address1' =>$request->getParam('address1'),
+            'address2' =>$request->getParam('address2'),
+            'city' =>$request->getParam('city'),
+            'postal_code' =>$request->getParam('postal_code'),
+            
+        ]);
+        
+        $order = $customer->orders()->create([
+            
+            'hash' => $hash,
+            'paid' => false,
+            'total' => $this->basket->subTotal() + 5,
+            'address_id' => $address->id,
+        ]);
+    
 
-            return $response->withRedirect($this->router->pathFor('order.index'));
-        }
-        die('create order');
-        
-        
     }
 }

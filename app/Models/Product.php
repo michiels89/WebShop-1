@@ -1,6 +1,8 @@
 <?php
 namespace Cart\Models;
 
+use Cart\Models\Order;
+
 use Illuminate\Database\Eloquent\Model;
 
 class Product extends Model
@@ -26,6 +28,12 @@ class Product extends Model
     public function hasStock($quantity)
     {
         return $this->stock >= $quantity;
+    }
+    
+    public function order ()
+    {
+        
+        return $this->belongsToMany(Order::class, 'orders_products')->withPivot('quantity');
     }
     
 }
