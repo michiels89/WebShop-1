@@ -43,17 +43,17 @@ class OrderController
     {
         $this->basket->refresh();
         
-        if(!$this->basket->subTotal()){
+        if (!$this->basket->subTotal()){
             return $response->withRedirect($this->router->pathFor('cart.index'));
         }
+         $validation = $this->validator->validate($request, OrderForm::rules());
         // validate
-            $validation = $this->validator->validate($request, OrderForm::rules());
+//        var_dump($this->validator);
+//            die();
+//        
         
-
         if ($validation->fails()){
-            
-            var_dump($validation->errors);
-                die();
+
             return $response->withRedirect($this->router->pathFor('order.index'));
         }
         die('create order');

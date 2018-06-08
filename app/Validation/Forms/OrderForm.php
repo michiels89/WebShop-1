@@ -10,7 +10,7 @@ class OrderForm
     {
         return [
             'email' => v::email(),
-            'name' => v::alpha(''),
+            'name' => v::alpha(' '),
             'address1' => v::alnum(' -'),
             'address2' => v::optional(v::alnum(' -')),
             'city' => v::alnum(' '),

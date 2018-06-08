@@ -32,3 +32,4 @@ $capsule->bootEloquent();
 require __DIR__ . '/../app/routes.php';
 
 $app->add(new \Cart\Middleware\ValidationErrorsMiddleware($container->get(Twig::class)));
+$app->add(new \Cart\Middleware\OldInputMiddleware($container->get(Twig::class)));
