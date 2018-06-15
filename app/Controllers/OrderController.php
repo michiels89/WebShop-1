@@ -55,10 +55,10 @@ class OrderController
 //            die();
 //        
         
-//        if ($validation->fails()){
-//
-//            return $response->withRedirect($this->router->pathFor('order.index'));
-//        }
+        if ($validation->fails()){
+
+            return $response->withRedirect($this->router->pathFor('order.index'));
+        }
         
         $hash = bin2hex(random_bytes(32)) ;
         
@@ -83,7 +83,25 @@ class OrderController
             'total' => $this->basket->subTotal() + 5,
             'address_id' => $address->id,
         ]);
+        
+        $order->products()->saveMany(
+            $this->basket->all(),
+            $this->getQuantities($this->basket->all())
+        );
     
+        
+        
 
+    }
+    
+    protected function getQuantities($items)
+    {
+        $quantities = [];
+        
+        foreach($items as $item)
+        {
+            $quantities[] = ['quantity' => $item->quantity];
+        }
+        return $quantities;
     }
 }
