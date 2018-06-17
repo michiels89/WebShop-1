@@ -27,5 +27,6 @@ return array(
     'DI\\Bridge\\Slim\\' => array($vendorDir . '/php-di/slim-bridge/src'),
     'DI\\' => array($vendorDir . '/php-di/php-di/src/DI'),
     'Cart\\' => array($baseDir . '/app'),
+    'Braintree\\' => array($vendorDir . '/braintree/braintree_php/lib/Braintree'),
     '' => array($vendorDir . '/nesbot/carbon/src'),
 );

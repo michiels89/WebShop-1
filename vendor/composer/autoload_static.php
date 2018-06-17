@@ -59,6 +59,10 @@ class ComposerStaticInit8d82ab7ee884299d79feac74c6c54f0c
         array (
             'Cart\\' => 5,
         ),
+        'B' => 
+        array (
+            'Braintree\\' => 10,
+        ),
     );
 
     public static $prefixDirsPsr4 = array (
@@ -146,6 +150,10 @@ class ComposerStaticInit8d82ab7ee884299d79feac74c6c54f0c
         array (
             0 => __DIR__ . '/../..' . '/app',
         ),
+        'Braintree\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/braintree/braintree_php/lib/Braintree',
+        ),
     );
 
     public static $fallbackDirsPsr4 = array (
@@ -165,6 +173,13 @@ class ComposerStaticInit8d82ab7ee884299d79feac74c6c54f0c
             'Pimple' => 
             array (
                 0 => __DIR__ . '/..' . '/pimple/pimple/src',
+            ),
+        ),
+        'B' => 
+        array (
+            'Braintree' => 
+            array (
+                0 => __DIR__ . '/..' . '/braintree/braintree_php/lib',
             ),
         ),
     );
