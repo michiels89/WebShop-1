@@ -3,18 +3,18 @@
 namespace Cart\Controllers;
 
 use Braintree_ClientToken;
-use Psr\Http\Message\ServerRequestInterface as Request;
+use Psr\Http\Message\ResponseInterface as Response;
 
 
 
 class BraintreeController
 {
     
-    public function token(Request $request, Response $response)
+    public function token(Response $response)
     {
         return $response->withJson([
             
-           'token' => Braintree_ClientToken::generate(); 
+           'token' => Braintree_ClientToken::generate(),
         ]);   
 
     }
