@@ -6,6 +6,7 @@ use Slim\Router;
 use Slim\Views\Twig;
 use Cart\Basket\Basket;
 use Cart\Models\Product;
+use Cart\Models\Order;
 use Cart\Models\Customer;
 use Cart\Models\Address;
 use Cart\Validation\Contracts\ValidatorInterface;
@@ -41,6 +42,19 @@ class OrderController
         }
 
         return $view->render($response,'order/index.twig');
+    }
+    
+    public function show($hash, Request $request, Response $response, Twig $view, Order $order)
+    {
+        $order = $order->with(['address', 'products'])->where('hash', $hash)->first();
+        
+        if(!$order) {
+            return $response->withRedirect($this->router->pathFor('home'));
+        }
+        
+        return $view->render($response, 'order/show.twig', [
+            'order' => $order,
+        ]);
     }
     
     public function create(Request $request, Response $response, Customer $customer, Address $address)
@@ -106,8 +120,30 @@ class OrderController
             ]
         ]);
         
-        var_dump($result);
-        die();
+        $event = new \Cart\Events\OrderWasCreated($order, $this->basket);
+        
+        if(!$result->success) {
+            $event->attach( new \Cart\Handlers\RecordFailedPayment);
+            $event->dispatch();
+            
+            return $response->withRedirect($this->router->pathFor('order.index'));
+        }
+        
+        $event->attach([
+            new \Cart\Handlers\MarkOrderPaid,
+            new \Cart\Handlers\RecordSuccessfulPayment($result->transaction->id),
+            new \Cart\Handlers\UpdateStock,
+            new \Cart\Handlers\EmptyBasket,
+        ]);
+        
+        
+        $event->dispatch();
+        
+        return $response->withRedirect($this->router->pathFor('order.show', [
+           'hash' => $hash, 
+            
+        ]));
+
 
     }
     
