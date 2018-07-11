@@ -1,14 +1,17 @@
 {% extends 'templates/app.twig' %}
 
 {% block content %}
-    <div class="row">
+    <div class="row ">
+           <div class="col-md-1"></div>
        {% for index, product in products %}
-           <div class="col-md-4 col-sm-6">
+
+           <div class="col-md-5 col-sm-7">
                {% include 'products/partials/item.twig' with{product: product} %}
            </div>
-           {% if (index + 1) % 3 == 0 %}
+           {% if (index + 1) % 2 == 0 %}
            </div>
            <div class="row">
+           <div class="col-md-1"></div>
            
            {% endif %}
        {% endfor %}
