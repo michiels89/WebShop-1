@@ -21,7 +21,9 @@
                     {% for item in basket.all() %}
                     
                         <tr>
-                            <td><img src="../../public/images/{{ item.image}}" alt="{{ product.title}}" class="thumbnail img-responsive"></td>
+                        <td><img src="../public/images/{{ item.image}}" alt="{{ product.title}}" class="thumbnail img-responsive"></td>
+
+
                             <td><a href="{{ path_for('product.get', { slug: item.slug}) }}">{{ item.title}}</a></td>
                             <td>€{{ item.price | number_format(2) }} </td>
                             <td>
