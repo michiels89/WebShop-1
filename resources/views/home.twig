@@ -1,6 +1,13 @@
 {% extends 'templates/app.twig' %}
 
 {% block content %}
+  <div class="left">
+  <p>L orem Ipsum (afgekort: lipsum) is de benaming van een tekst die vaak door drukkers, zetters, grafisch ontwerpers en dergelijke gebruikt wordt om te kijken hoe een tekst of lettertype eruit ziet, bijvoorbeeld in letterproeven, op een webpagina of op een kaft van een boek. De standaardversie van het Lorem Ipsum stamt uit circa 1500 en begint als volgt:</p>
+  <p>L orem Ipsum (afgekort: lipsum) is de benaming van een tekst die vaak door drukkers, zetters, grafisch ontwerpers en dergelijke gebruikt wordt om te kijken hoe een tekst of lettertype eruit ziet, bijvoorbeeld in letterproeven, op een webpagina of op een kaft van een boek. De standaardversie van het Lorem Ipsum stamt uit circa 1500 en begint als volgt:</p>
+  <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam..</p>
+
+</div>
+   <main>
     <div class="row ">
            <div class="col-md-1"></div>
        {% for index, product in products %}
@@ -16,5 +23,10 @@
            {% endif %}
        {% endfor %}
     </div>
+    </main>
+    <div class="right">  <p>L orem Ipsum (afgekort: lipsum) is de benaming van een tekst die vaak door drukkers, zetters, grafisch ontwerpers en dergelijke gebruikt wordt om te kijken hoe een tekst of lettertype eruit ziet, bijvoorbeeld in letterproeven, op een webpagina of op een kaft van een boek. De standaardversie van het Lorem Ipsum stamt uit circa 1500 en begint als volgt:</p>
+  <p>L orem Ipsum (afgekort: lipsum) is de benaming van een tekst die vaak door drukkers, zetters, grafisch ontwerpers en dergelijke gebruikt wordt om te kijken hoe een tekst of lettertype eruit ziet, bijvoorbeeld in letterproeven, op een webpagina of op een kaft van een boek. De standaardversie van het Lorem Ipsum stamt uit circa 1500 en begint als volgt:</p>
+  <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam..</p>
+</div>
 {% endblock %}
 
